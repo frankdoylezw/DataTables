@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests
 {
-    class Helper
+    internal class Helper
     {
         public static bool CompareRows(DataTable table1, DataTable table2)
         {

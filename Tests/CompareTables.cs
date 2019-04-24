@@ -6,10 +6,10 @@ using DataTables;
 namespace Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class CurrencyTests
     {
         [TestMethod]
-        public void CompareTables()
+        public void Compare_Values_In_Currency_Tables()
         {
             bool result = Helper.CompareRows(Tables.GetTable1(), Tables.GetTable2());
             Assert.IsTrue(result);
