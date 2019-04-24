@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace DataTables
 {
@@ -9,7 +10,7 @@ namespace DataTables
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, System.EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
             dataGridView1.DataSource = Tables.GetTable1();
             dataGridView2.DataSource = Tables.GetTable2();
