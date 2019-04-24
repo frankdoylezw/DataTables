@@ -9,7 +9,7 @@ namespace DataTables
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, global::System.EventArgs e)
+        private void Form1_Load(object sender, System.EventArgs e)
         {
             dataGridView1.DataSource = Tables.GetTable1();
             dataGridView2.DataSource = Tables.GetTable2();
