@@ -13,7 +13,7 @@ namespace DataTables
             dt1.Columns.Add("Variety2", typeof(decimal));
             dt1.Columns.Add("Variety3", typeof(decimal));
             dt1.Columns.Add("Variety4", typeof(decimal));
-            dt1.Rows.Add("Product 1", 10, 12, 14, 45);
+            dt1.Rows.Add("Product 1", 11, 12, 14, 45);
             dt1.Rows.Add("Product 2", 20, 15, 24);
             dt1.Rows.Add("Product 3", 22, 60);
             dt1.Rows.Add("Product 4", 28);

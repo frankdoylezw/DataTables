@@ -2,49 +2,65 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests
 {
-    internal class Helper
+    internal static class Helper
     {
-        public static bool CompareRows(DataTable table1, DataTable table2)
+        public static bool CompareColumns(DataTable table1, DataTable table2)
+        {
+            if (table1.Columns.Cast<DataColumn>().Any(dc => !table2.Columns.Contains(dc.ColumnName))) return false;
+            {
+                return true;
+            }
+        }
+
+        public static bool CompareRowColumnCount(DataTable table1, DataTable table2)
+        {
+            {
+                if (table1 == null) return false;
+                if (table2 == null) return false;
+                if (table1.Rows.Count != table2.Rows.Count) return false;
+                if (table1.Columns.Count != table2.Columns.Count) return false;
+                {
+                    return true;
+                }
+            }
+        }
+
+        public static bool CompareRowContent(DataTable table1, DataTable table2)
         {
             foreach (DataRow row1 in table1.Rows)
             {
                 foreach (DataRow row2 in table2.Rows)
                 {
-                    
-                    var array1 = row1.ItemArray;
-                    var array2 = row2.ItemArray;
-                    var decimals1 = GetDecimals(array1, (decimal) 1.5);
-                    var decimals2 = GetDecimals(array2, (decimal) 1.0);
-                    return (decimals1.SequenceEqual(decimals2));
-
-                   }
+                    var decimals1 = GetDecimals(row1.ItemArray, (decimal) 1.5);
+                    var decimals2 = GetDecimals(row2.ItemArray, (decimal) 1.0);
+                    if (decimals1.SequenceEqual(decimals2))
+                    {
+                        return true;
+                    };
+                }
             }
 
             return false;
         }
-        
-        static List<decimal> GetDecimals(object[] array, decimal multiplier)
+
+        private static List<decimal> GetDecimals(object[] array, decimal multiplier)
         {
             var list = new List<decimal>();
-            foreach (object value in array)
-            {
+            foreach (var value in array)
                 try
                 {
-                    decimal result = (decimal) value;
+                    var result = (decimal) value;
                     result *= multiplier;
                     list.Add(result);
                 }
-                catch
+                catch (Exception e)
                 {
-                    // Error.
+                    Console.WriteLine(@"Error creating decimal list." + e.Message);
                 }
-            }
 
             return list;
         }
