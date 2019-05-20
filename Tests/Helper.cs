@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests
 {
@@ -31,20 +30,24 @@ namespace Tests
 
         public static bool CompareRowContent(DataTable table1, DataTable table2)
         {
-            foreach (DataRow row1 in table1.Rows)
+            if (table1.Rows.Count != table2.Rows.Count)
             {
-                foreach (DataRow row2 in table2.Rows)
+                return false;
+            }
+
+            for (int i = 0; i < table1.Rows.Count; i++)
+            {
+                var row1 = table1.Rows[i];
+                var row2 = table2.Rows[i];
+                var decimals1 = GetDecimals(row1.ItemArray, (decimal)1.5);
+                var decimals2 = GetDecimals(row2.ItemArray, (decimal)1.0);
+                if (!decimals1.SequenceEqual(decimals2))
                 {
-                    var decimals1 = GetDecimals(row1.ItemArray, (decimal) 1.5);
-                    var decimals2 = GetDecimals(row2.ItemArray, (decimal) 1.0);
-                    if (decimals1.SequenceEqual(decimals2))
-                    {
-                        return true;
-                    };
+                    return false;
                 }
             }
 
-            return false;
+            return true;
         }
 
         private static List<decimal> GetDecimals(object[] array, decimal multiplier)
